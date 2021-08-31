@@ -1,0 +1,50 @@
+﻿@model IEnumerable<JBKClubs1.Models.GroupMember>
+@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = ViewData["Title"] = $"Groupmember for {Context.Session.GetString("artistName")}";
+}
+    <h1>@ViewData["Title"]</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.DateJoined)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateLeft)
+                </th>
+                <th>
+                    FullName
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateJoined)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateLeft)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArtistIdMemberNavigation.NameAddress.FirstName)
+                    </td>
+                    <td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { memberId=item.ArtistIdMemberNavigation.ArtistId, groupId = item.ArtistIdGroupNavigation.ArtistId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ArtistIdGroupNavigation.ArtistId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ArtistIdGroupNavigation.ArtistId})
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+

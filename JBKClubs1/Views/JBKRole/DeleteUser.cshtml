@@ -1,0 +1,20 @@
+﻿@model IEnumerable<JBKClubs1.Models.ViewModels.UserList>
+@{
+    ViewData["Title"] = "Confirm delete of roles: " + ViewBag.RoleName;
+}
+
+<h1>@ViewData["Title"]</h1>
+<form asp-action="DeleteUser">
+    <input type="hidden" name="UserName" value="@ViewBag.UserName" />
+    <h2>User in Role</h2>
+    <ul>
+        @foreach (var item in ViewBag.UserName)
+        {
+            <li>@item.UserName</li>
+        }
+    </ul>
+    <input type="submit" name="confirm" value="cancel delete"/>
+    <input type="submit" name="confirm" value="confirm delete"/>
+</form>
+<a asp-action="Index">Return to Role list</a>
+

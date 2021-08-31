@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<JBKClubs1.Models.Country>
+
+@{
+    ViewData["Title"] = "List of all Countries";
+}
+
+<h1>@ViewData["Title"] </h1>
+
+<p>
+    @if (User.IsInRole("medicalstaff") || User.IsInRole("administrators"))
+    {
+        <a asp-action="Create">Create New Country</a>
+    }
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CountryCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostalPattern)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhonePattern)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FederalSalesTax)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="JBKProvince" asp-action="index" asp-route-CountryCode="@item.CountryCode" asp-route-CountryName="@item.Name">@Html.DisplayFor(modelItem => item.CountryCode)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostalPattern)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhonePattern)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FederalSalesTax)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.CountryCode"> Details </a>
+                    @if (User.IsInRole("medicalstaff") || User.IsInRole("administrators"))
+                    {
+                        <text>|</text><a asp-action="Edit" asp-route-id="@item.CountryCode">Edit</a><text>|</text>
+                        <a asp-action="Delete" asp-route-id="@item.CountryCode">Delete</a>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

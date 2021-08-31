@@ -1,0 +1,47 @@
+﻿@model IEnumerable<JBKClubs1.Models.ViewModels.UserList>
+
+@{
+    ViewData["Title"] = $"User in Role '{ViewBag.RoleName}'";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="AddUserInList">
+    <label>Users not in role: </label>
+    <input type="hidden" name="RoleName" value="@ViewBag.RoleName" />
+    <select asp-items="ViewBag.UserName" name="UserName"></select>
+    <input type="submit" value="Add Role" />
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserEmail)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserEmail)
+                </td>
+                <td>
+                    <a asp-action="RemoveUser" asp-route-RoleName="@ViewBag.RoleName" asp-route-UserName="@item.UserName">Remove</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+<p>
+    <a asp-action="index">Return to Role List</a>
+</p>

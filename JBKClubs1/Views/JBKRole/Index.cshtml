@@ -1,0 +1,52 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<JBKClubs1.Models.ViewModels.RoleList>
+
+@{
+    ViewData["Title"] = "Roles on File";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="AddRole">
+    <input type="text" name="roleName" value="@ViewBag.roleName" />
+    <input type="submit" value="Add Role" />
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Normalized)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Normalized)
+                </td>
+                <td>
+                    <a asp-action="AddUser" asp-route-RoleName="@item.RoleName">Role Members</a>
+                    @if (item.RoleName != "administrators")
+                    {
+                        <a asp-action="DeleteUser" asp-route-RoleName="@item.RoleName" asp-route-RoleId="@item.RoleId">Delete Role</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
